@@ -12,7 +12,7 @@ If a user leaves your application and returns to stale data, **React Query autom
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: 'never',
     },
   },
 })
@@ -25,7 +25,7 @@ function App() {
 #### Disabling Per-Query
 
 ```js
-useQuery('todos', fetchTodos, { refetchOnWindowFocus: false })
+useQuery('todos', fetchTodos, { refetchOnWindowFocus: 'never' })
 ```
 
 ## Custom Window Focus Event
@@ -93,3 +93,4 @@ focusManager.setFocused(undefined)
 ## Pitfalls & Caveats
 
 Some browser internal dialogue windows, such as spawned by `alert()` or file upload dialogues (as created by `<input type="file" />`) might also trigger focus refetching after they close. This can result in unwanted side effects, as the refetching might trigger component unmounts or remounts before your file upload handler is executed. See [this issue on GitHub](https://github.com/tannerlinsley/react-query/issues/2960) for background and possible workarounds.
+

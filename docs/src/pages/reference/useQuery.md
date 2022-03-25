@@ -110,23 +110,23 @@ const result = useQuery({
 - `refetchIntervalInBackground: boolean`
   - Optional
   - If set to `true`, queries that are set to continuously refetch with a `refetchInterval` will continue to refetch while their tab/window is in the background
-- `refetchOnMount: boolean | "always"`
+- `refetchOnMount: "always" | "ifStale" | "never"`
   - Optional
-  - Defaults to `true`
-  - If set to `true`, the query will refetch on mount if the data is stale.
-  - If set to `false`, the query will not refetch on mount.
+  - Defaults to `"ifStale"`
+  - If set to `"ifStale"`, the query will refetch on mount if the data is stale.
+  - If set to `"never"`, the query will not refetch on mount.
   - If set to `"always"`, the query will always refetch on mount.
-- `refetchOnWindowFocus: boolean | "always"`
+- `refetchOnWindowFocus: "always" | "ifStale" | "never"`
   - Optional
-  - Defaults to `true`
-  - If set to `true`, the query will refetch on window focus if the data is stale.
-  - If set to `false`, the query will not refetch on window focus.
+  - Defaults to `"ifStale"`
+  - If set to `"ifStale"`, the query will refetch on window focus if the data is stale.
+  - If set to `"never"`, the query will not refetch on window focus.
   - If set to `"always"`, the query will always refetch on window focus.
-- `refetchOnReconnect: boolean | "always"`
+- `refetchOnReconnect: "always" | "ifStale" | "never"`
   - Optional
-  - Defaults to `true`
-  - If set to `true`, the query will refetch on reconnect if the data is stale.
-  - If set to `false`, the query will not refetch on reconnect.
+  - Defaults to `"ifStale"`
+  - If set to `"ifStale"`, the query will refetch on reconnect if the data is stale.
+  - If set to `"never"`, the query will not refetch on reconnect.
   - If set to `"always"`, the query will always refetch on reconnect.
 - `notifyOnChangeProps: string[] | "tracked"`
   - Optional

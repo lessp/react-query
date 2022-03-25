@@ -667,13 +667,13 @@ describe('useQuery', () => {
     expect(states[4]).toMatchObject({ isLoading: false, isSuccess: true })
   })
 
-  it('should fetch when refetchOnMount is false and nothing has been fetched yet', async () => {
+  it('should fetch when refetchOnMount is set to never and nothing has been fetched yet', async () => {
     const key = queryKey()
     const states: UseQueryResult<string>[] = []
 
     function Page() {
       const state = useQuery(key, () => 'test', {
-        refetchOnMount: false,
+        refetchOnMount: 'never',
       })
       states.push(state)
       return null
@@ -688,7 +688,7 @@ describe('useQuery', () => {
     expect(states[1]).toMatchObject({ data: 'test' })
   })
 
-  it('should not fetch when refetchOnMount is false and data has been fetched already', async () => {
+  it('should not fetch when refetchOnMount is set to never and data has been fetched already', async () => {
     const key = queryKey()
     const states: UseQueryResult<string>[] = []
 
@@ -696,7 +696,7 @@ describe('useQuery', () => {
 
     function Page() {
       const state = useQuery(key, () => 'test', {
-        refetchOnMount: false,
+        refetchOnMount: 'never',
       })
       states.push(state)
       return null
@@ -2372,7 +2372,7 @@ describe('useQuery', () => {
     expect(queryFn).not.toHaveBeenCalled()
   })
 
-  it('should not refetch stale query on focus when `refetchOnWindowFocus` is set to `false`', async () => {
+  it('should not refetch stale query on focus when `refetchOnWindowFocus` is set to `never`', async () => {
     const key = queryKey()
     const states: UseQueryResult<number>[] = []
     let count = 0
@@ -2380,7 +2380,7 @@ describe('useQuery', () => {
     function Page() {
       const state = useQuery(key, () => count++, {
         staleTime: 0,
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: 'never',
       })
       states.push(state)
       return null
@@ -2401,7 +2401,7 @@ describe('useQuery', () => {
     expect(states[1]).toMatchObject({ data: 0, isFetching: false })
   })
 
-  it('should not refetch fresh query on focus when `refetchOnWindowFocus` is set to `true`', async () => {
+  it('should not refetch fresh query on focus when `refetchOnWindowFocus` is set to `ifStale`', async () => {
     const key = queryKey()
     const states: UseQueryResult<number>[] = []
     let count = 0
@@ -2409,7 +2409,7 @@ describe('useQuery', () => {
     function Page() {
       const state = useQuery(key, () => count++, {
         staleTime: Infinity,
-        refetchOnWindowFocus: true,
+        refetchOnWindowFocus: 'ifStale',
       })
       states.push(state)
       return null
@@ -2500,7 +2500,7 @@ describe('useQuery', () => {
     })
   })
 
-  it('should refetch stale query when refetchOnMount is set to true', async () => {
+  it('should refetch stale query when refetchOnMount is set to ifStale', async () => {
     const key = queryKey()
     const states: UseQueryResult<string>[] = []
 
@@ -2510,7 +2510,7 @@ describe('useQuery', () => {
 
     function Page() {
       const state = useQuery(key, () => 'data', {
-        refetchOnMount: true,
+        refetchOnMount: 'ifStale',
         staleTime: 0,
       })
       states.push(state)
@@ -4431,8 +4431,8 @@ describe('useQuery', () => {
         enabled,
         retry: false,
         retryOnMount: false,
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
+        refetchOnMount: 'never',
+        refetchOnWindowFocus: 'never',
       })
 
       if (isLoading) {
@@ -4495,8 +4495,8 @@ describe('useQuery', () => {
         {
           retry: false,
           retryOnMount: false,
-          refetchOnMount: false,
-          refetchOnWindowFocus: false,
+          refetchOnMount: 'never',
+          refetchOnWindowFocus: 'never',
         }
       )
 
@@ -4554,8 +4554,8 @@ describe('useQuery', () => {
         {
           retry: false,
           retryOnMount: false,
-          refetchOnMount: false,
-          refetchOnWindowFocus: false,
+          refetchOnMount: 'never',
+          refetchOnWindowFocus: 'never',
         }
       )
 

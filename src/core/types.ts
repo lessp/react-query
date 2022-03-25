@@ -132,26 +132,26 @@ export interface QueryObserverOptions<
    */
   refetchIntervalInBackground?: boolean
   /**
-   * If set to `true`, the query will refetch on window focus if the data is stale.
-   * If set to `false`, the query will not refetch on window focus.
+   * If set to `ifStale`, the query will refetch on window focus if the data is stale.
+   * If set to `never`, the query will not refetch on window focus.
    * If set to `'always'`, the query will always refetch on window focus.
-   * Defaults to `true`.
+   * Defaults to `ifStale`.
    */
-  refetchOnWindowFocus?: boolean | 'always'
+  refetchOnWindowFocus?: 'always' | 'ifStale' | 'never'
   /**
-   * If set to `true`, the query will refetch on reconnect if the data is stale.
-   * If set to `false`, the query will not refetch on reconnect.
+   * If set to `ifStale`, the query will refetch on reconnect if the data is stale.
+   * If set to `never`, the query will not refetch on reconnect.
    * If set to `'always'`, the query will always refetch on reconnect.
-   * Defaults to `true`.
+   * Defaults to `ifStale`.
    */
-  refetchOnReconnect?: boolean | 'always'
+  refetchOnReconnect?: 'always' | 'ifStale' | 'never'
   /**
-   * If set to `true`, the query will refetch on mount if the data is stale.
-   * If set to `false`, will disable additional instances of a query to trigger background refetches.
+   * If set to `ifStale`, the query will refetch on mount if the data is stale.
+   * If set to `never`, will disable additional instances of a query to trigger background refetches.
    * If set to `'always'`, the query will always refetch on mount.
-   * Defaults to `true`.
+   * Defaults to `ifStale`.
    */
-  refetchOnMount?: boolean | 'always'
+  refetchOnMount?: 'always' | 'ifStale' | 'never'
   /**
    * If set to `false`, the query will not be retried on mount if it contains an error.
    * Defaults to `true`.

@@ -750,12 +750,22 @@ function shouldRefetchOnMount(
   query: Query<any, any, any, any>,
   options: QueryObserverOptions<any, any, any, any>
 ): boolean {
-  return (
-    options.enabled !== false &&
-    query.state.dataUpdatedAt > 0 &&
-    (options.refetchOnMount === 'always' ||
-      (options.refetchOnMount !== false && isStale(query, options)))
-  )
+  const isDataPristine = query.state.dataUpdatedAt === 0
+
+  if (options.enabled !== false && !isDataPristine) {
+    switch (options.refetchOnMount ?? 'ifStale') {
+      case 'always':
+        return true
+
+      case 'ifStale':
+        return isStale(query, options)
+
+      case 'never':
+        return false
+    }
+  } else {
+    return false
+  }
 }
 
 function shouldFetchOnMount(
@@ -771,22 +781,40 @@ function shouldFetchOnReconnect(
   query: Query<any, any, any, any>,
   options: QueryObserverOptions<any, any, any, any, any>
 ): boolean {
-  return (
-    options.enabled !== false &&
-    (options.refetchOnReconnect === 'always' ||
-      (options.refetchOnReconnect !== false && isStale(query, options)))
-  )
+  if (options.enabled !== false) {
+    switch (options.refetchOnReconnect ?? 'ifStale') {
+      case 'always':
+        return true
+
+      case 'ifStale':
+        return isStale(query, options)
+
+      case 'never':
+        return false
+    }
+  } else {
+    return false
+  }
 }
 
 function shouldFetchOnWindowFocus(
   query: Query<any, any, any, any>,
   options: QueryObserverOptions<any, any, any, any, any>
 ): boolean {
-  return (
-    options.enabled !== false &&
-    (options.refetchOnWindowFocus === 'always' ||
-      (options.refetchOnWindowFocus !== false && isStale(query, options)))
-  )
+  if (options.enabled !== false) {
+    switch (options.refetchOnWindowFocus ?? 'ifStale') {
+      case 'always':
+        return true
+
+      case 'ifStale':
+        return isStale(query, options)
+
+      case 'never':
+        return false
+    }
+  } else {
+    return false
+  }
 }
 
 function shouldFetchOptionally(
